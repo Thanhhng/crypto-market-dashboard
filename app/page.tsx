@@ -7,16 +7,18 @@ import { ErrorState } from "@/components/error-state";
 import { MarketControls } from "@/components/market-controls";
 import { useCoins } from "@/hooks/use-coins";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
-import { filterCoins } from "@/lib/filter-sort";
+import { filterCoins, sortCoins } from "@/lib/filter-sort";
+import type { SortOption } from "@/types";
 
 export default function Home() {
   const { data, isPending, isError, error, isFetching, refetch } = useCoins();
   const [query, setQuery] = useState("");
+  const [sortOption, setSortOption] = useState<SortOption>("rank");
   const debouncedQuery = useDebouncedValue(query);
 
   const visibleCoins = useMemo(
-    () => filterCoins(data ?? [], debouncedQuery),
-    [data, debouncedQuery],
+    () => sortCoins(filterCoins(data ?? [], debouncedQuery), sortOption),
+    [data, debouncedQuery, sortOption],
   );
 
   return (
@@ -28,7 +30,12 @@ export default function Home() {
         </p>
       </header>
 
-      <MarketControls query={query} onQueryChange={setQuery} />
+      <MarketControls
+        query={query}
+        onQueryChange={setQuery}
+        sortOption={sortOption}
+        onSortChange={setSortOption}
+      />
 
       {isError ? (
         <ErrorState

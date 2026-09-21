@@ -1,17 +1,29 @@
 import { Search, X } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { SORT_OPTIONS, type SortOption } from "@/types";
 
 export function MarketControls({
   query,
   onQueryChange,
+  sortOption,
+  onSortChange,
 }: {
   query: string;
   onQueryChange: (query: string) => void;
+  sortOption: SortOption;
+  onSortChange: (option: SortOption) => void;
 }) {
   return (
-    <div className="mb-6">
-      <div className="relative sm:max-w-xs">
+    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="relative sm:max-w-xs sm:flex-1">
         <Search
           className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
           aria-hidden
@@ -35,6 +47,19 @@ export function MarketControls({
           </Button>
         )}
       </div>
+
+      <Select value={sortOption} onValueChange={onSortChange}>
+        <SelectTrigger className="sm:w-56" aria-label="Sort coins">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {SORT_OPTIONS.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 }
