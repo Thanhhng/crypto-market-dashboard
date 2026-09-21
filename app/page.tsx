@@ -5,6 +5,7 @@ import { CoinGrid } from "@/components/coin-grid";
 import { EmptyState } from "@/components/empty-state";
 import { ErrorState } from "@/components/error-state";
 import { MarketControls } from "@/components/market-controls";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useCoins } from "@/hooks/use-coins";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { filterCoins, sortCoins } from "@/lib/filter-sort";
@@ -23,11 +24,14 @@ export default function Home() {
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6">
-      <header className="mb-6 border-b pb-6">
-        <h1 className="text-xl font-semibold tracking-tight">Crypto Market</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Top 20 cryptocurrencies by market cap
-        </p>
+      <header className="mb-6 flex items-start justify-between gap-4 border-b pb-6">
+        <div>
+          <h1 className="text-xl font-semibold tracking-tight">Crypto Market</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Top 20 cryptocurrencies by market cap
+          </p>
+        </div>
+        <ThemeToggle />
       </header>
 
       <MarketControls
