@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { Card, CardAction, CardContent, CardHeader } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { formatPercent, formatPrice } from "@/lib/format";
 import type { Coin } from "@/types";
 
@@ -52,6 +53,30 @@ export function CoinCard({ coin }: { coin: Coin }) {
             ))}
           {formatPercent(change)}
         </p>
+      </CardContent>
+    </Card>
+  );
+}
+
+export function CoinCardSkeleton() {
+  return (
+    <Card>
+      <CardHeader className="items-center gap-3">
+        <div className="flex items-center gap-3">
+          <Skeleton className="size-9 rounded-full" />
+          <div className="space-y-1.5">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-3 w-10" />
+          </div>
+        </div>
+        <CardAction>
+          <Skeleton className="h-3 w-6" />
+        </CardAction>
+      </CardHeader>
+
+      <CardContent className="flex flex-col items-end gap-2">
+        <Skeleton className="h-8 w-32" />
+        <Skeleton className="h-6 w-20" />
       </CardContent>
     </Card>
   );

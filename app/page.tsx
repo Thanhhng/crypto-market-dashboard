@@ -4,7 +4,7 @@ import { CoinGrid } from "@/components/coin-grid";
 import { useCoins } from "@/hooks/use-coins";
 
 export default function Home() {
-  const { data } = useCoins();
+  const { data, isPending } = useCoins();
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6">
@@ -15,7 +15,7 @@ export default function Home() {
         </p>
       </header>
 
-      <CoinGrid coins={data ?? []} />
+      <CoinGrid coins={data ?? []} isLoading={isPending} />
     </main>
   );
 }
