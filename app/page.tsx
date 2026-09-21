@@ -1,10 +1,11 @@
 "use client";
 
 import { CoinGrid } from "@/components/coin-grid";
+import { ErrorState } from "@/components/error-state";
 import { useCoins } from "@/hooks/use-coins";
 
 export default function Home() {
-  const { data, isPending } = useCoins();
+  const { data, isPending, isError, error, isFetching, refetch } = useCoins();
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6">
@@ -15,7 +16,15 @@ export default function Home() {
         </p>
       </header>
 
-      <CoinGrid coins={data ?? []} isLoading={isPending} />
+      {isError ? (
+        <ErrorState
+          message={error.message}
+          onRetry={() => refetch()}
+          isRetrying={isFetching}
+        />
+      ) : (
+        <CoinGrid coins={data ?? []} isLoading={isPending} />
+      )}
     </main>
   );
 }
