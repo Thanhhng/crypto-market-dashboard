@@ -1,7 +1,7 @@
 import { CoinCard, CoinCardSkeleton } from "@/components/coin-card";
 import type { Coin } from "@/types";
 
-const SKELETON_COUNT = 8;
+const SKELETON_COUNT = 20;
 
 export function CoinGrid({
   coins,
